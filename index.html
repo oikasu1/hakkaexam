@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>詔安客語認證初級閱讀</title>
+<link href="https://oikasu1.github.io/kasuexam/kasu/fonts/twhei.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  * { font-family: TWHEI, "台灣黑體"; }
+  :root{
+    --brand:#3fbf9f; --brand-dark:#2e9f85;
+    --card:#ffffff; --ink:#10231f;
+    --header-glass:#ffffffcc;
+    --star:#fbbf24;
+    --overlay:#0f172acc;
+    --btn-bg:#f3fcf9; --btn-bd:#c9e9de; --btn-tx:#10231f; --btn-bg-hover:#ebfaf6;
+    --btn-bd-strong:#7dd3c5;
+    --bg-grad-a:#e9fbf6; --bg-grad-b:#ffffff;
+    --accent:#33b39a; --accent-dark:#289b84; --accent-warm:#f59e0b;
+
+    --pick-blue:#dbeafe; --pick-blue-bd:#93c5fd; --pick-blue-tx:#1e3a8a;
+    --wrong-red:#ef4444; --unanswered-dark:#111827;
+  }
+  html,body{background:linear-gradient(160deg,var(--bg-grad-a) 0%,var(--bg-grad-b) 60%);color:var(--ink);}
+  .container-safe{max-width:1100px;margin:0 auto;padding:16px;}
+  @media (min-width:640px){ .container-safe{padding:20px;} }
+  @media (min-width:1024px){ .container-safe{padding:24px;} }
+
+  .card{background:var(--card);border-radius:16px;box-shadow:0 10px 24px rgba(0,0,0,.06);}
+  .cat-header{background:linear-gradient(90deg,var(--brand) 0%,color-mix(in oklab, var(--brand) 35%, #fff) 100%);}
+  .q-card{background:#fff;border:2px solid color-mix(in oklab, var(--brand) 20%, #fff 80%);border-radius:14px;transition:transform .15s,box-shadow .15s,border-color .2s;}
+  .q-card:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,0,0,.06);}
+
+  .opt-btn{border-radius:12px;border:2px solid transparent;transition:transform .05s,box-shadow .15s,background-color .2s,color .2s;}
+  .opt-btn:active{transform:translateY(1px);}
+  .opt-neutral{background:#f8fafc;color:var(--ink);}
+  .opt-right{background:#dcfce7;color:#065f46;border-color:#86efac;}
+  .opt-wrong{background:#fee2e2;color:#7f1d1d;border-color:#fca5a5;}
+  .opt-picked{ background:var(--pick-blue); color:var(--pick-blue-tx); border-color:var(--pick-blue-bd); }
+
+  .audio-btn{
+    background:var(--accent);color:#fff;border-radius:999px;padding:6px 10px;
+    display:inline-flex;align-items:center;gap:8px;
+    box-shadow:0 4px 10px color-mix(in oklab, var(--accent) 35%, #0000);
+    transition:background .2s,transform .05s,box-shadow .15s;
+    white-space:nowrap; font-size:.9rem;
+  }
+  .audio-btn:hover{background:var(--accent-dark);}
+  .audio-btn:active{transform:translateY(1px);}
+  .audio-btn.playing{background:var(--accent-warm);box-shadow:0 4px 10px color-mix(in oklab, var(--accent-warm) 30%, #0000);}
+  .audio-badge{
+    width:28px;height:28px;border-radius:999px;background:#fff;color:var(--accent);font-weight:800;
+    display:flex;align-items:center;justify-content:center;line-height:1;text-align:center;font-size:.9rem;
+  }
+  .audio-btn.unanswered{ background: var(--unanswered-dark); color:#fff; }
+  .audio-badge.unanswered{ background:#1f2937; color:#fff; }
+  .audio-btn.wrong{ background: var(--wrong-red); color:#fff; }
+  .audio-badge.wrong{ background:#fff; color: var(--wrong-red); }
+
+  .divider{height:1px;background:#e2e8f0;}
+  .accordion-body{overflow:hidden;transition:max-height .28s ease;}
+  .accordion-body.closed{max-height:0;}
+  .accordion-body.open{max-height:3000px;}
+
+  .topbar-btn{
+    background:var(--btn-bg);
+    color:var(--btn-tx);
+    border:1px solid var(--btn-bd);
+    border-radius:12px;
+    padding:6px 10px;
+    transition: background .2s, border-color .2s, box-shadow .2s, color .2s, opacity .2s;
+    font-size:.9rem;
+    display:inline-flex; align-items:center; gap:6px;
+    white-space:nowrap;
+  }
+  .topbar-btn:hover{ background:var(--btn-bg-hover); }
+  .topbar-btn[disabled]{ opacity:.5; cursor:not-allowed; }
+  .topbar-btn.emphasis{ border-color: var(--btn-bd-strong); }
+
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 600,'GRAD' 0,'opsz' 24;}
+
+  .star-btn{ color:#cbd5e1; transition: color .2s, transform .05s; }
+  .star-btn.active{ color: var(--star); }
+
+  .menu{ position:relative; }
+  .menu-btn{ display:inline-flex; align-items:center; gap:6px; }
+  .menu-list{
+    position:absolute; right:0; top:calc(100% + 6px);
+    background:#fff; border:1px solid #e2e8f0; border-radius:12px; box-shadow:0 12px 24px rgba(0,0,0,.08);
+    padding:6px; display:none; min-width:230px; z-index:30;
+  }
+  .menu.open .menu-list{ display:block; }
+  .menu-item{
+    width:100%; text-align:left; padding:8px 10px; border-radius:10px; color:#0f172a; background:#fff; display:flex; align-items:center; gap:8px;
+  }
+  .menu-item:hover{ background:#f1f5f9; }
+  .menu-item .check{ width:20px; text-align:center; color:#16a34a; visibility:hidden; }
+  .menu-item.active .check{ visibility:visible; }
+  .menu-item .icon{ width:22px; display:inline-flex; justify-content:center; opacity:.9; }
+  .menu-item .count{ margin-left:auto; color:#475569; }
+  .menu-item[disabled]{ opacity:.45; pointer-events:none; }
+
+  .learn-title mark{
+    color: var(--ink);
+    background: color-mix(in oklab, var(--brand) 15%, #ffffff);
+    padding: 0 6px 1px 6px;
+    border-radius: 8px;
+    box-shadow: inset 0 -2px 0 color-mix(in oklab, var(--brand) 35%, #ffffff);
+    font-weight: 500;
+  }
+  .learn-note{ color:#475569; font-size:.95rem; }
+
+  /* 頂部列：小視窗時自動換行，避免擠在同一行 */
+  .topbar-wrap{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+  }
+  .brand-title{ display:flex; align-items:center; gap:10px; flex:1 1 auto; min-width:240px; }
+  .actions-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; flex:1 1 240px; }
+  @media (min-width:768px){
+    .topbar-wrap{ flex-wrap:nowrap; }
+  }
+
+  .random-wrap{ background:#fff; border-radius:16px; }
+  .random-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .score-badge{ background:#f1f5f9; color:#0f172a; border:1px solid #e2e8f0; border-radius:999px; padding:4px 10px; font-weight:800; }
+  .submit-wrap{ display:flex; justify-content:center; }
+  .submit-btn{
+    background: var(--brand); color:#073d33; font-weight:800; border-radius:12px; padding:10px 16px;
+    border:1px solid color-mix(in oklab, var(--brand) 30%, #0000);
+  }
+  .submit-btn:hover{ background: color-mix(in oklab, var(--brand) 90%, #fff); }
+  .rand-item{ padding:14px 6px; border-bottom:1px solid #e2e8f0; }
+  .rand-item:last-child{ border-bottom:0; }
+  .rand-head{ display:flex; align-items:start; gap:10px; }
+
+  .modal-mask{ position: fixed; inset: 0; background: var(--overlay); display: none; align-items: center; justify-content: center; z-index: 50; }
+  .modal-mask.show{ display: flex; }
+  .modal-card{ background:#fff; border-radius:16px; width:min(92vw,460px); box-shadow:0 20px 40px rgba(0,0,0,.18); overflow:hidden; }
+</style>
+</head>
+<body>
+  <div class="container-safe">
+    <div class="rounded-2xl px-3 sm:px-4 py-3 mb-3 sm:mb-4 border border-blue-100 bg-[var(--header-glass)]">
+      <div class="topbar-wrap">
+        <div class="brand-title">
+          <div class="w-10 h-10 rounded-2xl bg-[var(--brand)] grid place-items-center text-white text-xl font-extrabold shrink-0">KA</div>
+          <h1 class="text-xl sm:text-2xl font-extrabold tracking-wide leading-tight">詔安客語認證初級閱讀</h1>
+        </div>
+        <div class="actions-row">
+          <!-- 模式 -->
+          <div class="menu" id="modeMenu">
+            <button class="topbar-btn menu-btn" id="modeBtn">
+              <span class="material-symbols-outlined" id="modeIconBtn">list</span>
+              <span id="modeBtnLabel">預設模式</span>
+              <span class="material-symbols-outlined text-base">expand_more</span>
+            </button>
+            <div class="menu-list" id="modeList">
+              <button class="menu-item" data-mode="default">
+                <span class="check"><span class="material-symbols-outlined">check</span></span>
+                <span class="icon material-symbols-outlined">list</span> 預設模式
+              </button>
+              <button class="menu-item" data-mode="learn">
+                <span class="check"><span class="material-symbols-outlined">check</span></span>
+                <span class="icon material-symbols-outlined">book_2</span> 瀏覽模式
+              </button>
+              <button class="menu-item" data-mode="random">
+                <span class="check"><span class="material-symbols-outlined">check</span></span>
+                <span class="icon material-symbols-outlined">shuffle</span> 隨機測驗
+              </button>
+            </div>
+          </div>
+
+          <!-- 篩選 -->
+          <div class="menu" id="filterMenu">
+            <button class="topbar-btn menu-btn" id="filterBtn">
+              <span class="material-symbols-outlined" id="filterIconBtn">view_list</span> 篩選
+              <span class="material-symbols-outlined text-base">expand_more</span>
+            </button>
+            <div class="menu-list" id="filterList">
+              <button class="menu-item" data-filter="all">
+                <span class="check"><span class="material-symbols-outlined">check</span></span>
+                <span class="icon material-symbols-outlined">view_list</span> 全部
+                <span class="count" id="countAll">(0)</span>
+              </button>
+              <button class="menu-item" data-filter="starred" id="filterStarredBtn">
+                <span class="check"><span class="material-symbols-outlined">check</span></span>
+                <span class="icon">★</span> 星號
+                <span class="count" id="countStarred">(0)</span>
+              </button>
+              <button class="menu-item" data-filter="unstarred" id="filterUnstarredBtn">
+                <span class="check"><span class="material-symbols-outlined">check</span></span>
+                <span class="icon">☆</span> 無星
+                <span class="count" id="countUnstarred">(0)</span>
+              </button>
+              <div class="divider my-1"></div>
+              <button class="menu-item" id="resetStarsMenu">
+                <span class="icon material-symbols-outlined">delete</span> 重設
+              </button>
+            </div>
+          </div>
+
+          <!-- 字級 -->
+          <button id="fontBtn" class="topbar-btn"><span class="material-symbols-outlined">format_size</span> 小</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 隨機模式 -->
+    <div id="randomContainer" class="random-wrap p-3 sm:p-4 hidden">
+      <div class="random-head mb-2">
+        <div class="font-extrabold">隨機測驗</div>
+        <div class="flex items-center gap-2">
+          <span id="scoreBadge" class="score-badge hidden">得分 0 / 100</span>
+          <button id="restartTop" class="topbar-btn hidden"><span class="material-symbols-outlined">restart_alt</span> 重新開始</button>
+        </div>
+      </div>
+      <div id="randomList" class="grid"></div>
+      <div class="submit-wrap mt-4">
+        <button id="randomSubmit" class="submit-btn">完成作答</button>
+      </div>
+    </div>
+
+    <!-- 預設/瀏覽模式 -->
+    <div id="accordionRoot" class="flex flex-col gap-3 sm:gap-4"></div>
+
+    <audio id="sharedAudio" preload="none"></audio>
+  </div>
+
+  <!-- 自訂確認（重設） -->
+  <div id="confirmModal" class="modal-mask">
+    <div class="modal-card">
+      <div class="px-5 py-4 border-b border-slate-200 flex items-center gap-2">
+        <span class="material-symbols-outlined text-red-500">warning</span>
+        <div class="font-extrabold text-lg">重設</div>
+      </div>
+      <div class="px-5 py-4 text-slate-700">
+        確定要清除所有題目的星號標記嗎？此操作無法復原。
+      </div>
+      <div class="px-5 py-4 border-t border-slate-200 flex items-center justify-end gap-2">
+        <button id="confirmCancel" class="topbar-btn">取消</button>
+        <button id="confirmOk" class="px-3 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white">重設</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 自訂提示（未作答） -->
+  <div id="alertModal" class="modal-mask">
+    <div class="modal-card">
+      <div class="px-5 py-4 border-b border-slate-200 flex items-center gap-2">
+        <span class="material-symbols-outlined text-amber-500">info</span>
+        <div class="font-extrabold text-lg">尚有未作答</div>
+      </div>
+      <div id="alertBody" class="px-5 py-4 text-slate-700">
+        請完成所有題目：第 1, 2 題
+      </div>
+      <div class="px-5 py-4 border-t border-slate-200 flex items-center justify-end gap-2">
+        <button id="alertOk" class="topbar-btn">知道了</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* 設定 */
+const CONFIG = {
+  FONT_SCALES: [
+    { label: '小', size: 20 },
+    { label: '中', size: 24 },
+    { label: '大', size: 28 }
+  ],
+  STORAGE_KEY: 'za-khak-reading-v1-stars',
+  CELE_EMOJIS: ['✨','🎉','🎊','💖','🥰'],
+  AUDIO_FOLDER: 'kyrz',
+  THEME_KEY: 'pine',
+  RANDOM_MODE_COUNT: 10
+};
+const THEMES = {
+  pine:{brand:'#3fbf9f',brandDark:'#2e9f85',bgA:'#e9fbf6',bgB:'#ffffff',ink:'#10231f',header:'#ffffffcc',accent:'#33b39a',accentDark:'#289b84',accentWarm:'#f59e0b',btnBg:'#f3fcf9',btnBd:'#c9e9de',btnTx:'#10231f'}
+};
+applyTheme(CONFIG.THEME_KEY);
+function applyTheme(key){
+  const t = THEMES[key] || THEMES.pine;
+  const r = document.documentElement;
+  r.style.setProperty('--brand', t.brand);
+  r.style.setProperty('--brand-dark', t.brandDark);
+  r.style.setProperty('--bg-grad-a', t.bgA);
+  r.style.setProperty('--bg-grad-b', t.bgB);
+  r.style.setProperty('--ink', t.ink);
+  r.style.setProperty('--header-glass', t.header);
+  r.style.setProperty('--accent', t.accent);
+  r.style.setProperty('--accent-dark', t.accentDark);
+  r.style.setProperty('--accent-warm', t.accentWarm);
+  r.style.setProperty('--btn-bg', t.btnBg);
+  r.style.setProperty('--btn-bd', t.btnBd);
+  r.style.setProperty('--btn-tx', t.btnTx);
+}
+
+/* 資料 */
+const mydata = `
+大類	音檔	題目	選項1	選項2	選項3	答數	答字	華語
+☀️天氣	yd180	1 天氣 恁{____}？	燒暖	燒	暖燒	1	 燒暖	天氣這麼{溫暖}？
+☀️天氣	yd058	2 天氣 猶 恁{____}！	燒暖	燒燒	暖燒	1	 燒暖	天氣還這麼{暖和}！
+☀️天氣	yd098	3 得 日頭 炙 毋會{____}！	光	烏	暗	2	 烏	被太陽晒不會{黑}！
+☀️天氣	yd229	4 天氣轉寒，一{____}即會 流濞水。	無堵好	正堵好	恁堵好	1	 無堵好	天氣轉冷，一{不巧}就會流鼻涕水。
+☀️天氣	yd252	5 天氣恁冷，愛 加著一領{____}。	底衫	大襖	短衫	2	 大襖	天氣這麼冷，要多穿一領{大綿襖}。
+☀️天氣	yd116	6 外媽 見擺{____}一變，佢个 風溼 即會 擎起來。	天氣	天光	天年	1	 天氣	外婆每次{天氣}一變，他的風溼就會發作。
+☀️天氣	yd230	7 下晝{____}會 落雨。	定著	定定	定期	1	 定着	下午{一定}會下雨。
+☀️天氣	yd235	8 今日 係{____}，真 無利便。	出頭天	落雨天	烏陰天	2	 落雨天	今天是{下雨天}，真不方便。
+☀️天氣	yd181	9 落雨天 愛{____}正好。	仰子	幾多	恁會	1	 仰子	落雨天要{怎樣}才好。
+☀️天氣	yd246	10 落雨天 記得{____}雨傘。	拗	撐	擎	3	 擎	落雨天記得{拿}雨傘。
+☀️天氣	yd028	11 落雨天{____}愛 著雨鞋。	頭好	猶好	堵好	1	 頭好	下雨天{最好}要穿雨鞋。
+☀️天氣	yd132	12 擎{____}來 遮涼。	竹篙	钁頭	傘	3	 傘	拿{雨傘}來遮涼。
+☀️天氣	yd017	13 東片裡 有{____}。	虹	日頭	雷公	1	 虹	東邊有{彩虹}。
+☀️天氣	yd256	14 日頭 對 東{____}出來。	片	面	頭	1	 片	太陽從東{邊}出來。
+🚌交通	yd053	1 阿宏{____}。	阿宏跈𠊎去	𠊎喊阿宏自家去	𠊎拜託阿宏去	1	 跈𠊎 去	{阿宏跟我去}。
+🚌交通	yd088	2 𠊎{____}毋會着。	跈	跍	企	1	 跈	我{跟}不到。
+🚌交通	yd084	3 𠊎{____}來。	黏等	黏着	黏時	3	 黏時	我{馬上}來。
+🚌交通	yd086	4 佢{____}正來。	有時務	同時	落尾	3	 落尾	他{最後}才來。
+🚌交通	yd222	5 {____}準備，車 討 駛走 啊！	定定	較緊	漸漸	2	 較緊	{快點}準備，車要開走了！
+🚌交通	yd082	6 睡傷晝 啊，無{____}公車。	赴着	搭着	做着	1	 赴着	睡太晚了，沒有{趕上}公車。
+🚌交通	yd102	7 無赴着車，毋知 愛{____}！	仰子好	仰子知	仰子會	1	 仰子好	沒趕上車，不知道要{怎樣好}！
+🚌交通	yd004	8 車相撞，足{____}！	分人驚	會著驚	得人驚	3	 得人驚	車相撞，很{可怕}！
+🚌交通	yd057	9 這條路 毋得{____}。	入	進	跈	1	 入	這條路無法{進入}。
+🚌交通	yd190	10 {____}係 青燈，會用 過 啊！	頭下	遐下	這滿	3	 這滿	{現在}是綠燈，可以過了！
+🚌交通	yd134	11 阿怙 講：車 討無油啊，愛 較緊去 加油。係講 油{____}。	伸一兜仔	猶真多	攏無啊	1	 伸一兜仔	爸爸說：車要沒油了，要快去加油。是說油{剩一點}。
+🚌交通	yd253	12 {____}毋赴 去接你，你 即 自家轉。	若係講	莫講係	係無講	1	 若係講	{萬一}來不及去接你，你就自己回去。
+🚌交通	yd248	13 {____}坐車 去 圖書館，{____}記得 隨零星錢。	雖然…毋過	因為…嘛係	若係…即愛	3	 若係 ... 即愛	{若是}坐車去圖書館，{就要}記得帶零錢。
+🚌交通	yd020	14 老儕人 愛{____}。	緊緊	細義	大步	2	 細義行	老人家要{小心走}。
+🚌交通	yd168	15 坐輪椅 愛 有人 鬥{____}。	推	挷	𢱤	3	 𢱤	坐輪椅要有人幫忙{推}。
+🚌交通	yd042	16 在 電扶梯 愛{____}正毋會跌倒。	企好勢	跍好勢	搭好勢	1	 企好勢	在電扶梯要{站好}才不會跌倒。
+🚌交通	yd221	17 這 有 流籠{____}坐。	愛	好	會	2	 好	這有纜車{好}坐。
+🏠空間	yd185	1 在遐{____}泥下！	𢱤	擊	搵	3	 搵	在那裡{窩}地上！
+🏠空間	yd080	2 佢 坐 在 頭{____}。	後背	到尾	收尾	1	 後背	他坐在最{後面}。
+🏠空間	yd188	3 你 留 在{____}，𠊎 去遐 坐。	哪	這	遐	2	 這	你留在{這}，我去那裡坐。
+🏠空間	yd175	4 遐 張 長凳 恁{____}，毋使 尖。	闊	狹	緪	1	 闊	那張長凳這麼{寬}，不必擠。
+🏠空間	yd038	5 兩百公尺{____}係 一個 大陂塘。	遐位	這位	哪位	1	 遐位	兩百公尺{那裡}是一個大池塘。
+🏠空間	yd140	6 𠊎公 个{____}在 山崠。	上屋	屋下	屋底	2	 屋下	我爺爺的{家}在山上。
+🏠空間	yd031	7 屋下{____}貼春聯。	門斗	門牌	門檻	1	 門斗	家裡{門坎上}貼春聯。
+🏠空間	yd192	8 鎖匙 毋知{____}在哪位？	鬥	拚	囥	3	 囥	鎖匙不知道{放}在哪裡？
+🏠空間	yd059	9 無 鎖匙，屋 嗄{____}。	毋得做	毋得入	毋得出	2	 毋得入	沒鑰匙，房子竟{進不去}。
+🏠空間	yd075	10 {____}。	喊人拁佢包物件	招人共下坐便車	拜託人得佢囥物件	3	 拜託人 得佢 囥物件	{拜託人讓他放東西}。
+🏠空間	yd051	11 遐間 違章建築{____}。	火燒屋	伙房屋	入新屋	1	 火燒屋	那間違章建築{失火}。
+🏠空間	yd148	12 去 新竹{____}！	一棧	一回	一儕	2	 一回	去新竹{一回}！
+🏠空間	yd112	13 𠊎 今日 去 你个 屋下{____}。	三回	三通	三件	1	 三回	我今天去你的家裡{三回}。
+🏠空間	yd186	14 日曆 一日{____}一頁！	搓	捽	扯	3	 扯	日曆一天{撕}一頁！
+🏠空間	yd115	15 {____}吊 个 月曆 係 公司 送 个。	壁崠	屋崠	桌崠	1	 壁崠	{牆壁上}吊的月曆是公司送的。
+🏠空間	yd207	16 加兩日，請 兄弟姊妹{____}愛轉來。	韶日	後日	昨日	2	 後日	再兩天，請兄弟姊妹{後天}要回來。
+🏠空間	yd024	17 這隻{____}用 十外年 猶 真 準。	手鎉	手錶	耳環	2	 手錶	這隻{手錶}用十幾年還很準。
+👩‍🍳做飯	yd254	1 討 十二點啊，好{____}啊。	食早	食晝	食夜	2	 食晝	要十二點了，好{吃午飯}了。
+👩‍🍳做飯	yd114	2 坐{____}正食！	實在	頭好	好勢	3	 好勢	坐{妥當}才吃！
+👩‍🍳做飯	yd171	3 食飯 攪 菜{____}。	渣	汁	湯	3	 湯	吃飯攪菜{湯}。
+👩‍🍳做飯	yd182	4 加 食{____}飯。	一兜	一粒	一垤	1	 一兜	多吃{一些}飯。
+👩‍🍳做飯	yd162	5 𠊎依 晨早時 輒輒 食{____}。	肉	糜	飯	2	 鮮糜	我媽媽早上時常常吃{稀飯}。
+👩‍🍳做飯	yd010	6 煮糜 愛 較{____}兜，即愛 加水。	淡	萋	鮮	3	 鮮	煮稀飯要較{稀}些，就要加水。
+👩‍🍳做飯	yd056	7 食 到 恁{____}。	客氣	拚勢	懶尸	2	 拚勢	吃到這麼{賣力}。
+👩‍🍳做飯	yd025	8 {____}加食兜 即 毋會 傷瘦。	客氣	拚勢	懶尸	2	 拚勢	{賣力}多吃些就不會太瘦。
+👩‍🍳做飯	yd139	9 食{____}，食肚 枵 啊。	傷少	傷晝	傷好	1	 傷少	吃{太少}，肚子餓了。
+👩‍🍳做飯	yd026	10 佢 食 三碗飯{____}會 枵。	猶有	猶係	即有	2	 猶係	他吃三碗飯{還是}會餓。
+👩‍🍳做飯	yd155	11 半晝子 即 食肚{____}啊！	渴	悿	枵	3	 枵	半晌就肚子{餓}了！
+👩‍🍳做飯	yd071	12 鬥{____}菜。	擇	打	拍	1	 擇	幫忙{挑}菜。
+👩‍🍳做飯	yd138	13 煮火鑊 愛 提{____}高麗菜 共下 煮。	幾下皮	幾下拿	幾下緣	1	 幾下皮	煮火鍋要拿{幾片}高麗菜一起煮。
+👩‍🍳做飯	yd033	14 食 紅豆{____}補血。	猶會	猶知	即會	1	 猶會	吃紅豆{還會}補血。
+👩‍🍳做飯	yd220	15 紅菜{____}補血。	好用	會用	試用	2	 會用	紅鳳菜{可以}補血。
+👩‍🍳做飯	yd121	16 煮 惜圓，囥{____}艾菜。	一兜仔	一粒仔	一鑊仔	1	 一兜仔	煮湯圓，放{一些}茼蒿。
+👩‍🍳做飯	yd164	17 薑絲 切 較{____}兜。	幼	辣	粗	1	 幼	薑絲切較{細}些。
+👩‍🍳做飯	yd247	18 鑊蓋 愛{____}起來。	弇	關	合	1	 弇	鍋蓋要{蓋}起來。
+👩‍🍳做飯	yd023	19 {____}添放 插電。	細鑊	電鑊	大鑊	2	 電鑊	{電鍋}忘記插電。
+👩‍🍳做飯	yd047	20 瓦斯爐 囥 到{____}。	灶下	廳下	廊下	1	 灶下	瓦斯爐放到{廚房}。
+👩‍🍳做飯	yd135	21 {____}个 物件 驚會 壞去。	食伸	食淨	食着	1	 食伸	{吃剩}的東西怕會壞掉。
+👩‍🍳做飯	yd193	22 {____}䀴望 有壞去無。	呸	鼻	咬	2	 鼻	{聞}看看有壞掉嗎。
+👩‍🍳做飯	yd144	23 魚 真{____}！	鮮	萋	靚	2	 萋	魚很{新鮮}！
+👩‍🍳做飯	yd209	24 {____}打粢，請大家食。	鬥相共	鬥鬧熱	強得人	1	 鬥相共	{幫忙}打麻糬，請大家吃。
+🍽️飲食	yd166	1 阿明 真{____}食 遐間 店 个 粄條。	討	會	愛	3	 愛	阿明很{愛}吃那間店的粄條。
+🍽️飲食	yd199	2 米篩目 愛 用 秥米{____}會 好食。	正	恁	忒	1	 正	米苔目要用在來米{才}會好吃。
+🍽️飲食	yd146	3 豆腐{____}真好食。	正	吂	嘛	3	 嘛	豆腐{也}很好吃。
+🍽️飲食	yd242	4 食 麵茶 摻 地豆麩 落去{____}。	攪	舀	撈	1	 攪	吃麵茶摻花生粉下去{攪}。
+🍽️飲食	yd245	5 無 艾粄，{____}買 菜包。	毋單淨	無共樣	高不將	3	 高不將	沒艾草粄，{不得已}買菜包。
+🍽️飲食	yd013	6 阿妹 恁乖，{____}加 食一垤 雞卵糕。	會用	做着	做下	1	 會用	妹妹這麼乖，{可以}多吃一塊蛋糕。
+🍽️飲食	yd054	7 蔗 剁做{____}來 食。	兩垤	兩片	兩截	3	 兩截	甘蔗剁成{兩截}來吃。
+🍽️飲食	yd133	8 食{____}剝殼 了後，膏兜仔鹽 較好食。	番麥	豆	柑子	1	 番麥	吃{玉米}剝殼之後，沾點鹽比較好吃。
+🍽️飲食	yd233	9 番梨{____}較 淨俐。	割	㓾	剁	2	 㓾	鳳梨{殺}較乾淨。
+🍽️飲食	yd195	10 食{____}會 自家 擘皮。	粢	弓蕉	紅粄	2	 弓蕉	吃{香蕉}會自己剝皮。
+🍽️飲食	yd228	11 柚子 个 皮 真{____}。	賁	燥	薄	1	 賁	柚子的皮很{厚}。
+🍽️飲食	yd029	12 八月半 食{____}。	饀粽	惜圓	柚子	3	 柚子	中秋節吃{柚子}。
+🍽️飲食	yd070	13 食 番薯{____}屙屁。	直直	頭頭	硬硬	1	 直直	吃番薯{一直}放屁。
+🍽️飲食	yd037	14 有人{____}正會 恁臭。	打哈啾	屙屁	打紙炮	2	 屙屁	有人{放屁}才會這麼臭。
+🍽️飲食	yd111	15 這 有{____}餅。	一垤	一支	一頭	1	 一垤	這有{一塊}餅。
+🍽️飲食	yd191	16 餅 真{____}，便宜 擱 好食。	省	發	值	3	 值	餅很{值得}，便宜又好吃。
+🍽️飲食	yd241	17 𠊎{____}糖 真好食。	堵着	感着	感覺	3	 感覺	我{覺得}糖果很好吃。
+🍽️飲食	yd001	18 糖食{____}啊。	淨淨	淨俐	清清	1	 淨淨	糖吃{光光}了
+🍽️飲食	yd176	19 樹乳糖 毋好 烏白{____}。	翻	呸	嘔	2	 呸	口香糖不要胡亂{吐}。
+🍽️飲食	yd205	20 食齋，{____}用 豬油 炒菜。	毋會用	毋記得	做下	1	 毋會用	吃齋，{不能}用豬油炒菜。
+🍽️飲食	yd215	21 {____}啉酒，身體會壞去。	輒輒	緊緊	定定	1	 輒輒	{常常}喝酒，身體會壞掉。
+🍽️飲食	yd201	22 這杯茶 恁{____}。	燒暖	燒	暖燒	2	 燒	這杯茶這麼{燙}。
+🍽️飲食	yd015	23 這 杯 豆乳 真{____}。	幼	細	淡	3	 淡	這杯豆漿很{淡}。
+🍽️飲食	yd165	24 提 一{____}杓 舀水。	粒	支	條	2	 支	拿一{支}杓子舀水。
+🍽️飲食	yd003	25 泡牛乳 愛 用{____}	冷水	滾水	涼水	2	 滾水	泡牛奶要用{開水}
+💰金錢	yd239	1 你 有 隨錢{____}？	吂	無	毋	2	 無	你有帶錢{嗎}？
+💰金錢	yd067	2 {____}。	錢拁阿珠提	錢係阿珠个	阿珠欠人錢	1	 錢 拁 阿珠 提	{錢跟阿珠拿}。
+💰金錢	yd179	3 去{____}領錢。	郵便局	學校	屋下	1	 郵便局	去{郵局}領錢。
+💰金錢	yd021	4 阿依{____}𠊎 去 買 豆油。	喊	帶	跈	1	 喊	媽媽{叫}我去買醬油。
+💰金錢	yd143	5 毋使相搶，{____}攏 買會着！	頭頭	逐儕	條條	2	 逐儕	不必相搶，{每個人}都買得到！
+💰金錢	yd117	6 今日 先 得𠊎請，{____}正 得你出錢。	逐擺	後次擺	頭擺	2	 後次擺	今天先讓我請，{下次}才給你出錢。
+💰金錢	yd216	7 皮包{____}你 這 囥。	分	渡	託	3	 託	皮包{託}你這放。
+💰金錢	yd122	8 皮包{____}啊！	橫去	毋見去	走去	2	 毋見去	皮包{不見}了！
+💰金錢	yd178	9 紅包 愛{____}好。	寄	撿	袋	3	 袋	紅包要{裝}好。
+💰金錢	yd109	10 阿弟 攏{____}拁 阿媽 討錢。	專門	專心	用心	1	 專門	弟弟都{專門}跟奶奶要錢。
+💰金錢	yd005	11 得 賊{____}萬外銀。	搶去	偷去	騙去	2	 偷 去	被小偷{偷去}萬把塊。
+💰金錢	yd126	12 錢 毋見去，愛{____}正好？	仰會	仰子	仰好	2	 仰子	錢弄丟，該{怎樣}才好？
+💰金錢	yd131	13 若無 問 即{____}偷。	喊做 	叫做	號做	3	 號做	如果沒問就{叫做}偷。
+💰金錢	yd196	14 遐間店{____}偷斤減兩。	毋會	毋想	毋好	1	 毋會	那間店{不會}偷斤減兩。
+🧾生活	yd094	1 褲{____}一大空！	綿	破	爛	3	 爛	褲子{破}一大洞！
+🧾生活	yd049	2 褲爛一大空，實在 真{____}哦v！	客氣	好得	見笑	3	 見笑	褲子破一大洞，實在很{丟臉}哦！
+🧾生活	yd130	3 衫褲 愛 炙{____}。	燒	乾	燥	3	 燥	衣服要晒{乾}。
+🧾生活	yd008	4 {____}有 你 鬥收衫褲。	好空	好得	好使	2	 好得	{幸好}有你幫忙收衣服。
+🧾生活	yd173	5 𠊎 買 一{____}老鼠色 个 衫。	領	頂	件	1	 領	我買一{件}灰色的衣服。
+🧾生活	yd145	6 阿依 著{____}靚靚 个 洋裝。	一身	一件	一片	1	 一身	媽媽穿{一套}美美的洋裝。
+🧾生活	yd217	7 體育課 愛{____}運動衫。	穿	著	戴	2	 著	體育課要{穿}運動服。
+🧾生活	yd128	8 佢 賣 个 衫{____}，較便宜 嘛 毋 拁佢 買。	恁䆀	真靚	足淨	1	 恁䆀	他賣的衣服{這麼醜}，較便宜也不跟他買。
+🧾生活	yd007	9 拁{____}撙燥。	面盆	面帕	面紙	2	 面帕	把{毛巾}擰乾。
+🧾生活	yd202	10 牙膏{____}到尾。	扭	揢	揞	2	 揢	牙膏{擠}到最後。
+🧾生活	yd208	11 頭那毛 愛{____}好勢。	䌈	捉	拉	1	 䌈	頭髮要{綁}妥當。
+🧾生活	yd103	12 袋嘴 愛 用{____}束。	蓋	樹乳	捽仔	2	 樹乳	袋口要用{橡皮筋}束。
+🧾生活	yd232	13 皮帶 䌈{____}。	密	揫	緪	3	 緪	皮帶綁{緊}。
+🧾生活	yd104	14 球鞋{____}。	鑪淨來	捽淨來	抹淨來	1	 鑪 淨 來	球鞋{刷洗乾淨來}。
+🧾生活	yd227	15 洗 運動鞋 愛 用{____}。	捽仔	筅仔	夾仔	2	 筅仔	洗運動鞋要用{刷子}。
+🧾生活	yd100	16 這張桌{____}有 六十 公分。	寬	短	闊	3	 闊	這張桌子{寬}有六十公分。
+🧾生活	yd119	17 這滿 點電火，毋使 像{____}愛 點油燈。	逐擺	後擺	成過	3	 成過	現在點電燈，不必像{以前}要點油燈。
+🧾生活	yd184	18 好{____}起來 啊！	跋	囥	企	1	 跋	好{爬}起來了！
+🧾生活	yd240	19 天 都{____}啊！	烏	暗	夜	2	 暗	天都{晚}了！
+🧾生活	yd172	20 {____}愛 較早睡。	早晨	暗夜	下晝	2	 暗夜	{晚上}要早點睡。
+🧾生活	yd063	21 喊 細子{____}。	吂好去睡	較緊去睡	毋使去睡	2	 較緊去睡	叫小孩子{快去睡}。
+🧾生活	yd027	22 細子{____}愛 較早睡。	當晝時	日時頭	暗夜時	3	 暗夜時	小孩子{晚上}要早點睡。
+🧾生活	yd012	23 無 關{____}即 睡毋會去。	電線	電球	電火	3	 電火	沒關{電燈}就睡不著。
+🧾生活	yd087	24 韶日{____}即愛 集合。	猶早	打早	忒早	2	 打早	明天{一大早}就要集合。
+🎮休閒	yd061	1 行棋{____}輸 過。	毋識	毋好	毋像	1	 毋識	下棋{不曾}輸過。
+🎮休閒	yd194	2 做鬼个人 目珠 愛{____}。	弇个	揞个	揜个	2	 揞个	做鬼的人眼睛要{蓋著}。
+🎮休閒	yd077	3 厥 弟{____}機器人 足緊个！	鬥	弇	扯	1	 鬥	他的弟弟{組裝}機器人很快速！
+🎮休閒	yd044	4 閒閒 加{____}兩禮拜。	尞	搞	行	1	 尞	閒閒多{玩}兩星期。
+🎮休閒	yd163	5 {____}，會 去 溪脣 釣魚。	歇睏時務	無閒時務	麼个時務	1	 歇睏時務	{休息時候}，會去河邊釣魚。
+🎮休閒	yd198	6 暗夜{____}陪你去 䀴電影。	無法度	無共樣	無定著	1	 無法度	晚上{沒辦法}陪你去看電影。
+🎮休閒	yd092	7 佢 係{____}一個 買着 票 个。	頭尾	尾後	收尾	1	 頭尾	他是{最後}一個買到票的。
+🎮休閒	yd212	8 實在 真{____}，山歌 唱到恁好聽。	精	慶	暢	2	 慶	實在很{能幹}，山歌唱得這麼好聽。
+🎮休閒	yd127	9 去{____}走相躐。	運動坪	便所	辦公室	1	 運動坪	去{運動場}賽跑。
+🎮休閒	yd124	10 騎鐵馬 落崎 个 時務，{____}愛 揢。	輪	擋	鈴	2	 擋	騎腳踏車下坡的時候，{煞車}要握。
+🎮休閒	yd250	11 歸屋下人 去{____}風景。	逛	遶	尞	2	 遶	全家人去{逛}風景。
+🎮休閒	yd244	12 腳膝頭 無好，無法度{____}山。	跋	走	出	1	 跋	膝蓋不好，沒辦法{爬}山。
+🎮休閒	yd009	13 阿興{____}即討 去 外國。	前年	舊年	過年了	3	 過年了	阿興{過完年}就要去外國。
+🎮休閒	yd016	14 佢{____}時務 去過 日本。	少年	天生	猶生	1	 少年	他{年輕}時候去過日本。
+🩺健康	yd099	1 菜{____}撿揫，會 餳烏蠅。	若無	若有	又係	1	 若無	菜{若沒有}收拾，會引蒼蠅來。
+🩺健康	yd197	2 得 火{____}。	熱着	著着	熝着	3	 熝着	被火{燙到}。
+🩺健康	yd062	3 額頭 碰 一個{____}！	空	縫	嘴	1	 空	額頭碰一個{洞}！
+🩺健康	yd096	4 鞋帶 無 䌈緪，{____}會 跌倒！	猶怕	毋怕	驚	3	 驚	鞋帶沒綁緊，{怕}會跌倒！
+🩺健康	yd123	5 阿文 跌倒，疾 到 直直{____}。	講	唩	氣	2	 唩	阿文跌倒，痛到一直{哭}。
+🩺健康	yd158	6 寒着 愛 戴{____}？	嘴落	笠婆	目鏡	1	 嘴落	感冒要戴{口罩}？
+🩺健康	yd211	7 佢 發燒 擱 直直{____}。	歕	呸	吐	3	 吐	他發燒又一直{吐}。
+🩺健康	yd069	8 阿雄{____}	毋會熱着	毋會熱	會熱着	3	 會 熱着	阿雄{會中暑}
+🩺健康	yd206	9 身體 恁好，{____}破病 咧？	敢愛	仰子會	幾多	2	 仰子會	身體這麼好，{怎麼會}生病呢？
+🩺健康	yd150	10 笑 到{____}疾。	腰子	頭那	食肚	3	 食肚	笑到{肚子}痛。
+🩺健康	yd043	11 便所 真{____}。	燒暖	淨俐	屙糟	2	 淨俐	廁所很{乾淨}。
+🩺健康	yd074	12 阿火{____}。	已經在便所內	猶吂去便所	真愛去便所	2	 猶吂 去便所	阿火{還沒去廁所}。
+🩺健康	yd055	13 尿真急，{____}便所！	忍毋核	忍毋到	忍毋落	2	 忍 毋 到	尿很急，{忍不到}廁所！
+🐾生物	yd034	1 蛇 鑽入{____}！	空	口	田	1	 空	蛇鑽入{洞}！
+🐾生物	yd079	2 伯婆 供 真多{____}。	頭牲	三牲	頭家	1	 頭牲	伯婆養很多{牲畜}。
+🐾生物	yd040	3 阿妹 拁 貓{____}到 像命。	惜	愛	暢	1	 惜	妹妹把貓{疼愛}到像命。
+🐾生物	yd189	4 {____}貓熊 真得人惜。	兩尾	兩隻	兩頭	2	 兩隻	{兩隻}貓熊很可愛。
+🐾生物	yd255	5 狗 會{____}屋。	顧	看	守	1	 顧	狗會{顧}房子。
+🐾生物	yd105	6 阿梅 个 狗{____}。	足靚	足精	足恬	2	 足精	阿梅的狗{很精明}。
+🐾生物	yd167	7 佢{____}得狗驚着。	識	愛	吂	1	 識	他{曾}被狗嚇到。
+🐾生物	yd032	8 一隻 大狗{____}一陣羊 !!	攔	走	行	1	 攔	一隻大狗{趕}一群羊！
+🐾生物	yd231	9 樹林{____}有 白卵鷥。	下腳	面上	脣頭	2	 面上	樹林{上面}有白鷺鷥。
+🐾生物	yd018	10 灶下 有{____}个 黃蚻！	得人慼	得人惜	得人緣	1	 得人慼	廚房有{討人厭}的蟑螂！
+🐾生物	yd072	11 得 蚊{____}！	食着	刺着	叮着	3	 叮着	被蚊子{叮到}！
+🐾生物	yd251	12 一{____}康乃馨。	蕊	頭	隻	1	 蕊	一{朵}康乃馨。
+🐾生物	yd120	13 在 花園{____}草。	摸	換	挷	3	 挷	在花園{拔}草。
+🐾生物	yd048	14 草 生到{____}，毋好 蹬。	恁䆀	恁靚	恁疏	2	 恁靚	草長得{這麼美}，不要踩。
+🐾生物	yd160	15 {____}割 起來 了後，穀 愛先 炙燥。	包粟	禾	地豆	2	 禾	{稻子}割起來之後，穀要先晒乾。
+🐾生物	yd154	16 車頭{____}有 一頭樹。	脣	崠	面	1	 脣	車站{邊}有一棵樹。
+🐾生物	yd157	17 樹 得人{____}兩頭。	剁	種	㓾	1	 剁	樹被人{剁}兩棵。
+🧑‍🤝‍🧑人際	yd065	1 阿妹{____}大大。	目眉	目珠	目汁	2	 目珠	妹妹{眼睛}大大。
+🧑‍🤝‍🧑人際	yd066	2 佢个 人 真{____}。	精神	戇神	風神	3	 風神	他的人很{驕傲}。
+🧑‍🤝‍🧑人際	yd218	3 你{____}別儕 做麼个？	賞	弄	插	3	 插	你{管}別人做什麼？
+🧑‍🤝‍🧑人際	yd107	4 {____}即 冤家。	停動着	若聽着	有撿着	1	 停動着	{動不動}就吵架。
+🧑‍🤝‍🧑人際	yd152	5 佢 停動着 即{____}，所以 無朋友。	冤家	鬥相共	相借問	1	 冤家	他動不動就{吵架}，所以沒朋友。
+🧑‍🤝‍🧑人際	yd002	6 遐 兩兄弟 真像{____}	生份人	自家人	冤仇人	3	 冤仇人	那兩兄弟很像{仇人}
+🧑‍🤝‍🧑人際	yd226	7 {____}一個 朋友 三言兩語。	罵	送	斷	3	 斷	{斷}一個朋友三言兩語。
+🧑‍🤝‍🧑人際	yd046	8 阿依{____}。	聽毋會着	毋肯聽	無愛聽	1	 聽毋會着	媽媽{聽不到}。
+🧑‍🤝‍🧑人際	yd238	9 係{____}打電話 尋 阿依？	麼个	麼儕	哪時	2	 麼儕	是{誰}打電話找媽媽？
+🧑‍🤝‍🧑人際	yd076	10 {____}有人客來？	敢係	但係	也係	1	 敢係	{難道是}有客人來？
+🧑‍🤝‍🧑人際	yd224	11 {____}一張凳 得 人客 坐。	揹	㧡	擔	3	 擔	{擔}一張凳子給客人坐。
+🧑‍🤝‍🧑人際	yd174	12 和人約好啊，你{____}無愛去，即愛 講 哦f！	仰子	若係	嘛係	2	 若係	和人約好了，你{若是}不要去，就要說哦！
+💞關係	yd006	1 十七歲 即{____}。	出嫁	過身	出世	1	 出嫁	十七歲就{出嫁}。
+💞關係	yd019	2 送 鑽石 个{____}來 求婚。	手落	手巾	手鎉	3	 手鎉	送鑽石的{戒指}來求婚。
+💞關係	yd187	3 𠊎 愛喊佢{____}，無幾 慣勢。	姨丈	姊丈	姑丈	2	 姊丈	我要叫他{姊夫}，不太習慣。
+💞關係	yd236	4 日 真{____}，真多人 渡親。	靚	壞	䆀	1	 靚	日子很{美}，很多人娶親。
+💞關係	yd153	5 紅包{____}佢 抸 過去。	請託	拜託	寄託	2	 拜託	紅包{拜託}他帶過去。
+💞關係	yd089	6 佢{____}嬰仔。	降	出	發	1	 降	她{生}嬰兒。
+💞關係	yd068	7 心情{____}。	真暢	無奈	真見笑	1	 真暢	心情{很高興}。
+💞關係	yd035	8 阿明 係 厥 媽{____}大个。	擐	渡	放	2	 渡	阿明是他的祖母{帶}大的。
+💞關係	yd106	9 細子 用{____}比 用 牽 較 安全。	攙	扛	擎	1	 攙	小孩子用{抱}比用牽較安全。
+💞關係	yd036	10 {____}攙佢毋會着。	熟事人	生份人	自家人	2	 生份人	{陌生人}抱不到他。
+💞關係	yd203	11 {____}愛 佢 鬥相共，佢 嘛好。	自家人	生理人	生份人	3	 生份人	{陌生人}要他幫忙，他也好。
+💞關係	yd108	12 阿蓮 係 阿成 个{____}。	阿姨	阿嫂	阿姊	2	 阿嫂	阿蓮是阿成的{嫂嫂}。
+💞關係	yd142	13 𠊎怙 个 阿嫂 係{____}？	伯㜷	伯婆	阿婆	1	 伯㜷	我爸爸的嫂嫂是{伯母}？
+💞關係	yd078	14 叔公{____}。	轉身	過身	翻身	2	 過身	叔公{過世}。
+💞關係	yd136	15 轉 舊屋 拜{____}！	叔婆	姨婆	公媽	3	 公媽	回老房子拜{祖先}！
+💞關係	yd156	16 莫 燒金紙，{____}會 無環保。	有無	若無	敢無	2	 若無	別燒金紙，{不然}會不環保。
+💞關係	yd170	17 嬰仔 在遐 直直{____}。	講	唩	笑	2	 唩	嬰兒在那裡一直{哭}。
+💞關係	yd249	18 阿妹{____}到 無天無地。	唩	㖸	嘔	1	 唩	妹妹{哭}到沒天沒地。
+💞關係	yd210	19 大人喊，細子 即愛{____}聲。	說	講	應	3	 應	大人叫，小孩子就要{回應}聲音。
+💞關係	yd081	20 𠊎叔 真會{____}。	講古	講價	講和	1	 講古	我叔叔很會{說書}。
+💼工作	yd177	1 用 畚擔{____}兩籃 菜。	攬	擔	揹	2	 擔	用扁擔{擔}兩籃菜。
+💼工作	yd022	2 上夜班，攏{____}正 歇睏。	日時頭	昨日	暗夜時	1	 日時頭	上夜班，都{白天}才休息。
+💼工作	yd129	3 {____}做較悿，夜時頭 即 較好睡。	日時頭	天光日	大前日	1	 日時頭	{白天}做較累，晚上就比較好睡。
+💼工作	yd113	4 今日愛加班，暗夜{____}共下食飯。	無法度	無堵好	無奈何	1	 無法度	今天要加班，晚上{沒辦法}一起吃飯。
+💼工作	yd223	5 工 做到 真{____}。	密	粗	幼	3	 幼	工做得很{細}。
+💼工作	yd234	6 阿明{____}會 無頭路 啊。	若無	驚	好得	2	 驚	阿明{怕}會沒工作了。
+💼工作	yd118	7 佢 這下{____}到 落屎。	疾	氣	苦	3	 苦	他現在{苦}到拉肚子。
+💼工作	yd083	8 阿美{____}即討 去 新公司。	今年	舊年	過年了	3	 過年了	阿美{過完年}就要去新公司。
+💼工作	yd183	9 賣 早頓 真 好趁，{____}愛 真早起來。	毋過	毋係	毋單	1	 毋過	賣早餐很好賺，{可是}要很早起來。
+📚學習	yd093	1 恁{____}電動。	愛賞	毋好	好鬥	1	 愛賞	這麼{愛玩}電動。
+📚學習	yd219	2 這滿頭時行 賞{____}。	電腦	相機	手機	3	 手機	現在最流行玩{手機}。
+📚學習	yd151	3 手機 猶 新新，毋知 麼儕{____}个。	擊去	跌去	㧒去	2	 跌去	手機還新新，不知道誰{弄丟}的。
+📚學習	yd125	4 毋會用手機 即{____}啊！	跈人毋會着	跈會着人	有人跈着	1	 跈人毋會着	不會用手機就{跟不上人家}了！
+📚學習	yd141	5 {____}時行 个 人。	跈會着	買會着	捽會着	1	 跈會着	{跟得上}流行的人。
+📚學習	yd060	6 {____}去學校！	猶在	猶吂	猶有	2	 猶吂	{還沒}去學校！
+📚學習	yd041	7 在學校 真{____}拚掃。	認真	厲害	淨俐	1	 認真	在學校很{認真}打掃。
+📚學習	yd214	8 佢 和 同學{____}掃泥下。	做下	共下	遐下	2	 共下	他和同學{一起}掃地。
+📚學習	yd149	9 桌崠{____}真賁。	泥粉	垃圾	石灰	1	 泥粉	桌上{灰塵}很厚。
+📚學習	yd147	10 桌崠 愛{____}。	鑪淨	撿淨	捽淨	3	 捽淨	桌上要{擦乾淨}。
+📚學習	yd097	11 大家 愛注意{____}。	淨食	淨俐	白淨	2	 淨俐	大家要注意{乾淨}。
+📚學習	yd200	12 手溼溼，愛 用 手帕{____}燥。	捽	摸	搓	1	 捽	手溼溼，要用手帕{擦}乾。
+📚學習	yd225	13 去海脣{____}垃圾。	抌	撿	擊	2	 撿	去海邊{撿}垃圾。
+📚學習	yd085	14 烏白{____}垃圾。	㧡	收	擊	3	 擊	胡亂{丟}垃圾。
+✏️功課	yd073	1 {____}。	書讀了啊	毋使讀書	書吂讀好	3	 書吂讀好	{書還沒讀好}。
+✏️功課	yd101	2 一本{____}个 書！	恁闊	恁大	恁賁	3	 恁 賁	一本{這麼厚}的書！
+✏️功課	yd095	3 書 傷多 啊，莫擱{____}入去。	鬥	貼	尖	3	 尖	書太多了，別再{擠}進去。
+✏️功課	yd213	4 書包{____}有 真多 物件。	外頭	脣頭	內底	3	 內底	書包{裡面}有很多東西。
+✏️功課	yd052	5 箱{____}囥 麼个？	面上	內底	脣頭	2	 內底	箱子{裡面}放什麼？
+✏️功課	yd159	6 作業簿{____}啊！	打毋得	做毋得	打毋見	3	 打毋見	作業簿{弄丟}了！
+✏️功課	yd064	7 作業 對{____}傳到頭前。	上頭	下裡	後背	3	 後背	作業從{後面}傳到前面。
+✏️功課	yd137	8 佢{____}个 去 投先生。	擎	唩	企	2	 唩	他{哭}的去告老師。
+✏️功課	yd039	9 先生{____}有 講？	頭擺	頭下	等下	2	 頭下	老師{剛剛}有說？
+✏️功課	yd237	10 𠊎{____}即 添放！	黏時	黏黏	黏等	1	 黏時	我{馬上}就忘記！
+✏️功課	yd243	11 先生{____}會 和 學生 討論。	大體	大局	大眾	1	 大體	老師{大概}會和學生討論。
+✏️功課	yd257	12 筆{____}你个？	抑係	若係	敢係	3	 敢係	筆{難道是}你的？
+✏️功課	yd169	13 筆 愛{____}得佢 正。	拈	挾	擎	3	 擎	筆要{拿}讓他正。
+✏️功課	yd110	14 字寫毋着，愛{____}莫。	捽	抹	撚	1	 捽	字寫不對，要{擦}掉。
+✏️功課	yd050	15 正 寫 恁多 字 定，作文 寫到{____}。	傷少	傷多	傷長	1	 傷少	才寫這麼多字而已，作文寫得{太少}。
+✏️功課	yd011	16 這題 麼儕{____}寫？	好得	毋得	會曉	3	 會曉	這題誰{會}寫？
+✏️功課	yd090	17 𠊎{____}想。	頭那崠	食肚底	心肝底	3	 心肝底	我{心裡}想。
+✏️功課	yd161	18 你个{____}愛 有 自家个想法。	頭那	食肚底	心肝底	3	 心肝底	你的{心裡}要有自己的想法。
+✏️功課	yd091	19 {____}有 你。	好勢	好心	好得	3	 好得	{幸好}有你。
+✏️功課	yd030	20 {____}有 你 教 𠊎 數學。	盼得	做得	好得	3	 好得	{幸好}有你教我數學。
+✏️功課	yd045	21 準備好勢，正毋會{____}攏 恁緊張。	逐擺	後次擺	頭擺	1	 逐擺	準備好，才不會{每次}都這麼緊張。
+✏️功課	yd014	22 佢{____}聰明，猶擱 足 打拚。	毋單淨	毋過	毋係	1	 毋單	他{不只}聰明，而且還非常努力。
+✏️功課	yd204	23 考試 着頭名 真{____}。	譴	愛	暢	3	 暢	考試得第一名很{興奮}。
+`;
+
+/* 狀態 */
+let fontIndex = 0;
+let playingBtn = null;
+const audio = document.getElementById('sharedAudio');
+let STAR_SET = loadStars();
+let currentFilter = 'all';
+let mode = 'default';
+let DATA = null;
+
+/* 儲存 */
+function starKey(item){ return `${item.category}|${item.audio}`; }
+function loadStars(){ try{ const raw=localStorage.getItem(CONFIG.STORAGE_KEY); return raw?JSON.parse(raw):{}; }catch(e){ return {}; } }
+function saveStars(){ localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(STAR_SET)); }
+
+/* 解析 */
+function parseData(raw){
+  const lines=raw.trim().split(/\r?\n/);
+  const header=lines.shift().split(/\t+/).map(s=>s.trim());
+  const idxOf=n=>header.indexOf(n);
+  const ansIdx = idxOf('答數');
+  const ansTxtIdx = idxOf('答字');
+  const groups={}, order=[];
+  lines.forEach(line=>{
+    const cols=line.split(/\t+/);
+    if(cols.length<header.length) return;
+    const rec={
+      category:(cols[idxOf('大類')]||'').trim(),
+      audio:(cols[idxOf('音檔')]||'').trim(),
+      title:(cols[idxOf('題目')]||'').trim(),
+      opt1:(cols[idxOf('選項1')]||'').trim(),
+      opt2:(cols[idxOf('選項2')]||'').trim(),
+      opt3:(cols[idxOf('選項3')]||'').trim(),
+      answerIndex:parseInt((cols[ansIdx]||'1').trim(),10)||1,
+      answerText:(cols[ansTxtIdx]||'').trim(),
+      mandarin:(cols[idxOf('華語')]||'').trim()
+    };
+    if(!groups[rec.category]){ groups[rec.category]=[]; order.push(rec.category); }
+    groups[rec.category].push(rec);
+  });
+  return {groups,order};
+}
+function correctOptionText(item){ return [item.opt1,item.opt2,item.opt3][item.answerIndex-1] || ''; }
+function buildLearnTitle(item){
+  const fill = (item.answerText && item.answerText.trim()) || correctOptionText(item) || '答案';
+  return item.title.replace(/\{____\}/g, `{${fill}}`);
+}
+
+/* 音訊 */
+function stopAudio(){ if(!audio.paused){ audio.pause(); audio.currentTime=0; } if(playingBtn){ playingBtn.classList.remove('playing'); playingBtn=null; } }
+function playAudioFromButton(btn,src){
+  if(playingBtn && playingBtn!==btn) stopAudio();
+  playingBtn=btn; audio.src=src;
+  audio.play().then(()=>btn.classList.add('playing')).catch(()=>{ stopAudio(); alert('無法播放音檔：'+src); });
+}
+audio.addEventListener('ended',stopAudio);
+
+/* 題卡（預設/瀏覽） */
+function createQuestionNode(item, idx, isLearn=false){
+  const wrap=document.createElement('div');
+  wrap.className='q-card p-4';
+  wrap.dataset.key=starKey(item);
+
+  const row=document.createElement('div');
+  row.className='flex items-start gap-3';
+
+  const audioBtn=document.createElement('button');
+  audioBtn.className='audio-btn';
+  audioBtn.dataset.src=`${CONFIG.AUDIO_FOLDER}/${item.audio}.mp3`;
+  audioBtn.innerHTML=`<span class="audio-badge">${idx}</span><span class="material-symbols-outlined">volume_up</span>`;
+  audioBtn.addEventListener('click',()=>{
+    const src=audioBtn.dataset.src;
+    if(playingBtn===audioBtn) stopAudio(); else playAudioFromButton(audioBtn,src);
+  });
+
+  const title=document.createElement('div');
+  title.className='flex-1 leading-relaxed';
+  title.textContent=item.title;
+
+  const starBtn=document.createElement('button');
+  starBtn.className='star-btn text-2xl leading-none';
+  starBtn.innerHTML = `<span class="material-symbols-outlined">grade</span>`;
+  if (STAR_SET[wrap.dataset.key]) starBtn.classList.add('active');
+  starBtn.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    const k=wrap.dataset.key;
+    if(STAR_SET[k]){ delete STAR_SET[k]; starBtn.classList.remove('active'); }
+    else { STAR_SET[k]=true; starBtn.classList.add('active'); }
+    saveStars(); applyFilterVisibility(wrap); updateCategoryCounts(); updateFilterCountsUI();
+  });
+
+  row.appendChild(audioBtn);
+  if(!isLearn){ row.appendChild(title); }
+  row.appendChild(starBtn);
+  wrap.appendChild(row);
+
+  if(isLearn){
+    const learnBox=document.createElement('div');
+    learnBox.className='mt-3';
+    learnBox.innerHTML=`
+      <div class="learn-title leading-relaxed"></div>
+      <div class="learn-note mt-2">華語：<span>${item.mandarin||''}</span></div>
+    `;
+    learnBox.querySelector('.learn-title').innerHTML = buildLearnTitle(item).replace(/\{(.+?)\}/g,'<mark>$1</mark>');
+    wrap.appendChild(learnBox);
+  }else{
+    const opts=document.createElement('div');
+    opts.className='mt-3 grid grid-cols-3 gap-2';
+    [item.opt1,item.opt2,item.opt3].forEach((t,i)=>{
+      const b=document.createElement('button');
+      b.className='opt-btn opt-neutral w-full py-3 px-2 text-center';
+      b.textContent=t; b.dataset.index=String(i+1);
+      b.addEventListener('click',()=>{
+        if(wrap.dataset.answered==='1') return;
+        const picked=parseInt(b.dataset.index,10);
+        const correct=item.answerIndex;
+        opts.querySelectorAll('button').forEach(x=>{ x.classList.remove('opt-right','opt-wrong'); x.classList.add('opt-neutral'); });
+        if(picked===correct){ b.classList.remove('opt-neutral'); b.classList.add('opt-right'); }
+        else{
+          b.classList.remove('opt-neutral'); b.classList.add('opt-wrong');
+          const rb=opts.querySelectorAll('button')[correct-1]; rb.classList.remove('opt-neutral'); rb.classList.add('opt-right');
+        }
+        const rb=opts.querySelectorAll('button')[correct-1];
+        rb.textContent=item.answerText || rb.textContent;
+        const fb=document.createElement('div');
+        fb.className='mt-3 text-slate-700';
+        fb.textContent='華語：'+(item.mandarin||'');
+        wrap.appendChild(fb);
+        wrap.dataset.answered='1';
+      });
+      opts.appendChild(b);
+    });
+    wrap.appendChild(opts);
+  }
+
+  applyFilterVisibility(wrap);
+  return wrap;
+}
+
+/* 手風琴 */
+function buildAccordion(groupData, isLearn=false){
+  const root=document.getElementById('accordionRoot');
+  root.innerHTML='';
+  const {groups,order}=groupData;
+  const cats=order && order.length? order : Object.keys(groups);
+
+  cats.forEach((cat,idx)=>{
+    const section=document.createElement('section');
+    section.className='card overflow-hidden';
+    section.id='cat-'+idx;
+
+    const headerBtn=document.createElement('button');
+    headerBtn.className='w-full cat-header px-4 sm:px-5 py-4 text-left flex items-center justify-between';
+    headerBtn.innerHTML=`
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-white/70 text-[var(--brand-dark)] font-extrabold">${String(idx+1).padStart(2,'0')}</span>
+        <span class="text-xl font-extrabold tracking-wide">${cat}</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="cat-count" data-cat-count="${cat}">0</span>
+        <span class="material-symbols-outlined text-xl" aria-hidden="true">expand_more</span>
+      </div>
+    `;
+
+    const body=document.createElement('div');
+    body.className='accordion-body closed';
+    const inner=document.createElement('div');
+    inner.className='accordion-inner p-4 sm:p-5 grid gap-3 sm:gap-4';
+
+    groups[cat].forEach((q,i)=>inner.appendChild(createQuestionNode(q,i+1,isLearn)));
+    body.appendChild(inner);
+
+    headerBtn.addEventListener('click',()=>{
+      const isOpen=body.classList.contains('open');
+      document.querySelectorAll('.accordion-body.open').forEach(bd=>{
+        if(bd!==body){
+          bd.classList.remove('open'); bd.classList.add('closed');
+          const icon=bd.previousElementSibling.querySelector('.material-symbols-outlined'); if(icon) icon.textContent='expand_more';
+        }
+      });
+      if(isOpen){
+        body.classList.remove('open'); body.classList.add('closed');
+        headerBtn.querySelector('.material-symbols-outlined').textContent='expand_more';
+      }else{
+        body.classList.remove('closed'); body.classList.add('open');
+        headerBtn.querySelector('.material-symbols-outlined').textContent='expand_less';
+        const y = headerBtn.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      stopAudio();
+      updateCategoryCounts();
+    });
+
+    section.appendChild(headerBtn);
+    section.appendChild(body);
+    root.appendChild(section);
+  });
+
+  updateCategoryCounts();
+}
+
+/* 篩選顯示與數量 */
+function applyFilterVisibility(card){
+  if(mode==='random'){ card.style.display=''; return; }
+  const k = card.dataset.key;
+  const starred = !!STAR_SET[k];
+  let show = true;
+  if (currentFilter==='starred') show = starred;
+  else if (currentFilter==='unstarred') show = !starred;
+  card.style.display = show ? '' : 'none';
+}
+function countTotals(){
+  const all = Object.values(DATA.groups).reduce((a,arr)=>a+arr.length,0);
+  let starred=0;
+  Object.values(DATA.groups).flat().forEach(item=>{
+    if(STAR_SET[starKey(item)]) starred++;
+  });
+  const unstarred = all - starred;
+  return {all, starred, unstarred};
+}
+function updateFilterCountsUI(){
+  const {all, starred, unstarred} = countTotals();
+  const allEl = document.getElementById('countAll');
+  const stEl = document.getElementById('countStarred');
+  const unEl = document.getElementById('countUnstarred');
+  if(allEl) allEl.textContent = `(${all})`;
+  if(stEl) stEl.textContent = `(${starred})`;
+  if(unEl) unEl.textContent = `(${unstarred})`;
+  const stBtn = document.getElementById('filterStarredBtn');
+  const unBtn = document.getElementById('filterUnstarredBtn');
+  if(stBtn) stBtn.toggleAttribute('disabled', starred===0);
+  if(unBtn) unBtn.toggleAttribute('disabled', unstarred===0);
+}
+
+/* 隨機模式 */
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function buildRandom(){
+  const rList = document.getElementById('randomList');
+  rList.innerHTML='';
+
+  const cats = DATA.order;
+  const total = CONFIG.RANDOM_MODE_COUNT;
+  let base = Math.floor(total / cats.length);
+  let remainder = total % cats.length;
+  const picked = [];
+  cats.forEach(cat=>{
+    const pool = DATA.groups[cat];
+    const take = Math.min(pool.length, base + (remainder>0 ? 1 : 0));
+    if(remainder>0) remainder--;
+    picked.push(...shuffle(pool).slice(0,take));
+  });
+  while(picked.length<total){
+    const all = cats.flatMap(c=>DATA.groups[c]);
+    picked.push(all[picked.length % all.length]);
+  }
+
+  picked.forEach((item, idx)=>{
+    const card=document.createElement('div');
+    card.className='rand-item';
+    card.dataset.answer='';
+    card.dataset.correct=String(item.answerIndex);
+    card.dataset.correctText=item.answerText || correctOptionText(item);
+
+    const head=document.createElement('div');
+    head.className='rand-head';
+    const audioBtn=document.createElement('button');
+    audioBtn.className='audio-btn';
+    audioBtn.dataset.src=`${CONFIG.AUDIO_FOLDER}/${item.audio}.mp3`;
+    audioBtn.innerHTML=`<span class="audio-badge">${idx+1}</span><span class="material-symbols-outlined">volume_up</span>`;
+    audioBtn.addEventListener('click',()=>{
+      const src=audioBtn.dataset.src;
+      if(playingBtn===audioBtn) stopAudio(); else playAudioFromButton(audioBtn,src);
+    });
+    const title=document.createElement('div');
+    title.className='flex-1 leading-relaxed';
+    title.textContent=item.title;
+
+    head.appendChild(audioBtn);
+    head.appendChild(title);
+    card.appendChild(head);
+
+    const opts=document.createElement('div');
+    opts.className='mt-3 grid grid-cols-3 gap-2';
+    [item.opt1,item.opt2,item.opt3].forEach((t,i)=>{
+      const b=document.createElement('button');
+      b.className='opt-btn opt-neutral w-full py-3 px-2 text-center';
+      b.textContent=t; b.dataset.index=String(i+1);
+      b.addEventListener('click',()=>{
+        opts.querySelectorAll('button').forEach(x=>{ x.classList.remove('opt-picked'); x.classList.add('opt-neutral'); });
+        b.classList.remove('opt-neutral'); b.classList.add('opt-picked');
+        card.dataset.answer = String(i+1);
+        audioBtn.classList.remove('unanswered','wrong');
+        audioBtn.querySelector('.audio-badge').classList.remove('unanswered','wrong');
+      });
+      opts.appendChild(b);
+    });
+    card.appendChild(opts);
+
+    const hint=document.createElement('div');
+    hint.className='mt-3 text-slate-700 hidden';
+    hint.textContent = '華語：' + (item.mandarin || '');
+    card.appendChild(hint);
+
+    rList.appendChild(card);
+  });
+
+  document.getElementById('scoreBadge').classList.add('hidden');
+  document.getElementById('restartTop').classList.add('hidden');
+  const submitBtn = document.getElementById('randomSubmit');
+  submitBtn.textContent = '完成作答';
+  submitBtn.classList.remove('topbar-btn');
+}
+
+/* 批改 */
+function gradeRandom(){
+  const cards = Array.from(document.querySelectorAll('#randomList .rand-item'));
+  const unanswered=[];
+  cards.forEach((card, idx)=>{ if(!card.dataset.answer) unanswered.push(idx+1); });
+  if(unanswered.length){
+    document.getElementById('alertBody').textContent = '請完成所有題目：第 ' + unanswered.join(', ') + ' 題';
+    document.getElementById('alertModal').classList.add('show');
+    unanswered.forEach(no=>{
+      const card = cards[no-1];
+      const btn = card.querySelector('.audio-btn');
+      const badge = card.querySelector('.audio-badge');
+      btn.classList.add('unanswered');
+      badge.classList.add('unanswered');
+    });
+    return;
+  }
+  let correctCount = 0;
+  cards.forEach(card=>{
+    const picked = parseInt(card.dataset.answer,10);
+    const correct = parseInt(card.dataset.correct,10);
+    const opts = card.querySelectorAll('.opt-btn');
+    opts.forEach((b,i)=>{
+      b.classList.remove('opt-picked','opt-right','opt-wrong','opt-neutral');
+      if(i+1===correct) b.classList.add('opt-right');
+      else if(i+1===picked) b.classList.add('opt-wrong');
+      else b.classList.add('opt-neutral');
+    });
+    const correctBtn = opts[correct-1];
+    const text = card.dataset.correctText || correctBtn.textContent;
+    correctBtn.textContent = text;
+
+    const hint = card.querySelector('.text-slate-700');
+    if(hint) hint.classList.remove('hidden');
+
+    if(picked===correct){ correctCount++; }
+    else{
+      const a = card.querySelector('.audio-btn');
+      const badge = card.querySelector('.audio-badge');
+      a.classList.add('wrong');
+      badge.classList.add('wrong');
+    }
+  });
+  const score = Math.round(100 * correctCount / cards.length);
+  const scoreBadge = document.getElementById('scoreBadge');
+  scoreBadge.textContent = `得分 ${score} / 100`;
+  scoreBadge.classList.remove('hidden');
+  const restartTop = document.getElementById('restartTop');
+  restartTop.classList.remove('hidden');
+
+  const submitBtn = document.getElementById('randomSubmit');
+  submitBtn.textContent = '重新開始';
+  submitBtn.classList.add('topbar-btn');
+  submitBtn.onclick = ()=>{ buildRandom(); window.scrollTo({top:0,behavior:'smooth'}); };
+  restartTop.onclick = submitBtn.onclick;
+}
+
+/* 字級 */
+const fontBtn=document.getElementById('fontBtn');
+function applyFontSize(){
+  const scale=CONFIG.FONT_SCALES[fontIndex%CONFIG.FONT_SCALES.length];
+  document.documentElement.style.fontSize=scale.size+'px';
+  fontBtn.lastChild.nodeValue = ' ' + scale.label;
+}
+fontBtn.addEventListener('click',()=>{ fontIndex=(fontIndex+1)%CONFIG.FONT_SCALES.length; applyFontSize(); });
+
+/* 菜單與狀態 */
+function setupMenus(){
+  const modeMenu=document.getElementById('modeMenu');
+  const filterMenu=document.getElementById('filterMenu');
+  const modeBtn=document.getElementById('modeBtn');
+  const filterBtn=document.getElementById('filterBtn');
+
+  const modeIconBtn=document.getElementById('modeIconBtn');
+  const filterIconBtn=document.getElementById('filterIconBtn');
+  const modeBtnLabel=document.getElementById('modeBtnLabel');
+
+  const modeIconMap = { default:'list', learn:'book_2', random:'shuffle' };
+  const modeLabelMap = { default:'預設模式', learn:'瀏覽模式', random:'隨機測驗' };
+  const filterIconMap = { all:'view_list', starred:'grade', unstarred:'star_rate' };
+
+  function syncButtons(){
+    // 圖示與按鈕文字
+    modeIconBtn.textContent = modeIconMap[mode] || 'list';
+    modeBtnLabel.textContent = modeLabelMap[mode] || '預設模式';
+    filterIconBtn.textContent = filterIconMap[currentFilter] || 'view_list';
+    // 邊框強調
+    modeBtn.classList.toggle('emphasis', mode!=='default');
+    filterBtn.classList.toggle('emphasis', currentFilter!=='all');
+    // 隨機模式禁用篩選；其餘可用
+    filterBtn.disabled = (mode==='random');
+  }
+
+  function toggleMenu(menu){ menu.classList.toggle('open'); }
+  modeBtn.addEventListener('click',()=>{ toggleMenu(modeMenu); filterMenu.classList.remove('open'); });
+  filterBtn.addEventListener('click',()=>{ if(filterBtn.disabled) return; toggleMenu(filterMenu); modeMenu.classList.remove('open'); });
+  document.addEventListener('click',(e)=>{ if(!modeMenu.contains(e.target)) modeMenu.classList.remove('open'); if(!filterMenu.contains(e.target)) filterMenu.classList.remove('open'); });
+
+  // 模式選項（僅當前項目顯示勾勾）
+  const modeItems = document.querySelectorAll('#modeList .menu-item[data-mode]');
+  function updateModeChecks(){
+    modeItems.forEach(i=>{ i.classList.toggle('active', i.getAttribute('data-mode')===mode); });
+  }
+  modeItems.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const m = btn.getAttribute('data-mode');
+      modeMenu.classList.remove('open');
+      changeMode(m);
+      updateModeChecks();
+      syncButtons();
+    });
+  });
+
+  // 篩選選項（僅當前項目顯示勾勾）
+  const filterItems = document.querySelectorAll('#filterList .menu-item[data-filter]');
+  function updateFilterChecks(){
+    filterItems.forEach(i=>{ i.classList.toggle('active', i.getAttribute('data-filter')===currentFilter); });
+  }
+  filterItems.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      currentFilter = btn.getAttribute('data-filter');
+      document.querySelectorAll('#accordionRoot .q-card').forEach(applyFilterVisibility);
+      updateCategoryCounts();
+      updateFilterCountsUI();
+      updateFilterChecks();
+      filterMenu.classList.remove('open');
+      syncButtons();
+    });
+  });
+
+  // 重設
+  document.getElementById('resetStarsMenu').addEventListener('click', ()=>{
+    filterMenu.classList.remove('open');
+    openConfirm();
+  });
+
+  updateModeChecks();
+  updateFilterChecks();
+  syncButtons();
+  updateFilterCountsUI();
+}
+
+/* 模式切換 */
+function changeMode(m){
+  mode = m; stopAudio();
+  const acc = document.getElementById('accordionRoot');
+  const rand = document.getElementById('randomContainer');
+  if(mode==='default'){
+    rand.classList.add('hidden');
+    buildAccordion(DATA,false);
+  }else if(mode==='learn'){ // 瀏覽模式
+    rand.classList.add('hidden');
+    buildAccordion(DATA,true);
+  }else{ // 隨機測驗
+    acc.innerHTML='';
+    rand.classList.remove('hidden');
+    buildRandom();
+  }
+  updateFilterCountsUI();
+  document.getElementById('filterBtn').disabled = (mode==='random');
+  document.getElementById('modeBtn').classList.toggle('emphasis', mode!=='default');
+}
+
+/* 視窗 */
+const confirmModal = document.getElementById('confirmModal');
+const confirmCancel = document.getElementById('confirmCancel');
+const confirmOk = document.getElementById('confirmOk');
+function openConfirm(){ confirmModal.classList.add('show'); }
+confirmCancel.addEventListener('click', ()=> confirmModal.classList.remove('show'));
+confirmOk.addEventListener('click', ()=>{
+  STAR_SET = {}; saveStars();
+  document.querySelectorAll('.star-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#accordionRoot .q-card').forEach(applyFilterVisibility);
+  confirmModal.classList.remove('show');
+  updateCategoryCounts();
+  updateFilterCountsUI();
+});
+
+const alertModal = document.getElementById('alertModal');
+document.getElementById('alertOk').addEventListener('click', ()=> alertModal.classList.remove('show'));
+
+/* 交互 */
+document.getElementById('randomSubmit').addEventListener('click', ()=>{
+  const btn = document.getElementById('randomSubmit');
+  if(btn.textContent.includes('重新開始')){
+    buildRandom(); window.scrollTo({top:0,behavior:'smooth'}); return;
+  }
+  gradeRandom();
+});
+
+/* 計數徽章更新 */
+function updateCategoryCounts(){
+  const sections = document.querySelectorAll('#accordionRoot section.card');
+  sections.forEach(sec=>{
+    const header = sec.querySelector('.cat-header');
+    const catName = header.querySelector('.text-xl').textContent.trim();
+    const cards = sec.querySelectorAll('.q-card');
+    let count=0; cards.forEach(el=>{ if(el.style.display===''||el.style.display==='block') count++; });
+    const badge = header.querySelector(`.cat-count[data-cat-count="${catName}"]`);
+    if (badge) badge.textContent = count;
+  });
+}
+
+/* 初始化 */
+(function init(){
+  applyFontSize();
+  DATA=parseData(mydata);
+  buildAccordion(DATA,false); // 預設模式
+  setupMenus();
+})();
+</script>
+</body>
+</html>
