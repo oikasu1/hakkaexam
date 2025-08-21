@@ -272,11 +272,17 @@ const CONFIG = {
   STORAGE_KEY: 'kasu-exam-yd',
   CELE_EMOJIS: ['✨','🎉','🎊','💖','🥰'],
   AUDIO_FOLDER: 'mp3',
-  THEME_KEY: 'pine',
+  THEME_KEY: 'ocean',
   RANDOM_MODE_COUNT: 10
 };
 const THEMES = {
-  pine:{brand:'#3fbf9f',brandDark:'#2e9f85',bgA:'#e9fbf6',bgB:'#ffffff',ink:'#10231f',header:'#ffffffcc',accent:'#33b39a',accentDark:'#289b84',accentWarm:'#f59e0b',btnBg:'#f3fcf9',btnBd:'#c9e9de',btnTx:'#10231f'}
+    fresh:{brand:'#26d07c',brandDark:'#0e8f55',bgA:'#e6fff3',bgB:'#ffffff',ink:'#0f172a',header:'#ffffffc8',filterBg:'#e6fff3',filterBd:'#86efac',filterTx:'#065f46',accent:'#0ea5e9',accentDark:'#0284c7',accentWarm:'#fb923c',catInk:'#083b2c',btnBg:'#f8fafc',btnBd:'#e2e8f0',btnTx:'#0f172a',btnHover:'#f1f5f9'},
+    ocean:{brand:'#0ea5e9',brandDark:'#075985',bgA:'#e0f2fe',bgB:'#ffffff',ink:'#0b132a',header:'#ffffffcc',filterBg:'#dbeafe',filterBd:'#93c5fd',filterTx:'#1e3a8a',accent:'#0ea5e9',accentDark:'#0369a1',accentWarm:'#22c55e',catInk:'#0b3a53',btnBg:'#f1f5f9',btnBd:'#dbeafe',btnTx:'#0b132a',btnHover:'#e2e8f0'},
+    dusk:{brand:'#a78bfa',brandDark:'#6d28d9',bgA:'#f5f3ff',bgB:'#ffffff',ink:'#201a2c',header:'#ffffffcc',filterBg:'#ede9fe',filterBd:'#c4b5fd',filterTx:'#4c1d95',accent:'#8b5cf6',accentDark:'#7c3aed',accentWarm:'#f59e0b',catInk:'#2e1065',btnBg:'#f8f5ff',btnBd:'#e9d5ff',btnTx:'#201a2c',btnHover:'#f3e8ff'},
+    sunny:{brand:'#f59e0b',brandDark:'#b45309',bgA:'#fff7ed',bgB:'#ffffff',ink:'#3b2f0b',header:'#ffffffcc',filterBg:'#fef3c7',filterBd:'#fcd34d',filterTx:'#7c2d12',accent:'#f59e0b',accentDark:'#d97706',accentWarm:'#10b981',catInk:'#7c2d12',btnBg:'#fff7ed',btnBd:'#fde68a',btnTx:'#5b3110',btnHover:'#ffedd5'},
+    pine:{brand:'#3fbf9f',brandDark:'#2e9f85',bgA:'#e9fbf6',bgB:'#ffffff',ink:'#10231f',header:'#ffffffcc',filterBg:'#d9f7f0',filterBd:'#a9ecdd',filterTx:'#0f6b5a',accent:'#33b39a',accentDark:'#289b84',accentWarm:'#f59e0b',catInk:'#125e52',btnBg:'#f3fcf9',btnBd:'#c9e9de',btnTx:'#10231f',btnHover:'#ebfaf6'},
+    sand:{brand:'#d4a373',brandDark:'#b07d4f',bgA:'#fff7ed',bgB:'#ffffff',ink:'#2c241b',header:'#ffffffcc',filterBg:'#fde8d7',filterBd:'#f5cbaa',filterTx:'#6b3e1e',accent:'#c28b5a',accentDark:'#a87446',accentWarm:'#4caf50',catInk:'#5b3a25',btnBg:'#fff5ea',btnBd:'#f0d1b7',btnTx:'#2c241b',btnHover:'#ffeeda'}
+
 };
 applyTheme(CONFIG.THEME_KEY);
 function applyTheme(key){
